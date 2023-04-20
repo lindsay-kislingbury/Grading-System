@@ -1,0 +1,7 @@
+Name	Points for final exam
+Emma	89
+Olivia	67
+Amelia	81
+Charlotte	63
+Joe	92
+Charlie	51
