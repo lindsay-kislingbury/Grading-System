@@ -22,15 +22,8 @@ public class Student {
     quizScores = new ArrayList<Integer>();
   }
 
-  /*
-   * TODO: possible methods
-   * score average?
-   * final grade?
-   */
-
-
-  public boolean equals(String name) {
-    if (this.name.equals(name))
+  public boolean equals(Student s) {
+    if (this.name.equals(s.name))
       return true;
     else
       return false;
