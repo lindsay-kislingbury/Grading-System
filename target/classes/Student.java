@@ -22,14 +22,13 @@ public class Student {
     quizScores = new ArrayList<Integer>();
   }
 
+  //Equals Method compares student by name
   public boolean equals(Student s) {
-    if (this.name.equals(s.name))
-      return true;
-    else
-      return false;
+    if (this.name.equals(s.name)) return true;
+    else return false;
   }
 
-  // Add a score
+  //Add a score
   public void addScore(Character type, int score) {
     switch (type) {
       case 'F':

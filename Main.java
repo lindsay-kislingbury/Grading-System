@@ -1,8 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-
-class Main {
+class Main {  
   public static void main(String[] args) {
     Map<String, Student> studentsMap = new HashMap<String, Student>();
 
@@ -20,21 +19,20 @@ class Main {
         String lineJustRead = fileScnr.nextLine(); 
         line = lineJustRead.split("\t"); 
 
-        //loop through the rest of the data and store
-        //in the correct attribute
+        //loop through the rest of the data and store in the correct attribute
         for(int i=0; i<headers.length; i++){ 
-          if(headers[i].contains("Name")){   
+          if(headers[i].toLowerCase().contains("name")){   
             name = line[i];
           }
-          else if(headers[i].contains("quiz")){
+          else if(headers[i].toLowerCase().contains("quiz")){
             type = 'Q';
             score = Integer.parseInt(line[i]);
           }
-          else if(headers[i].contains("midterm")){
+          else if(headers[i].toLowerCase().contains("midterm")){
            type = 'M';
            score = Integer.parseInt(line[i]);
           }
-          else if(headers[i].contains("final")){
+          else if(headers[i].toLowerCase().contains("final")){
             type = 'F';
             score = Integer.parseInt(line[i]);
           }
@@ -60,7 +58,5 @@ class Main {
     for(String name : studentsMap.keySet()){
       studentsMap.get(name).printInfo();
     }
-    
-
   }
 }
