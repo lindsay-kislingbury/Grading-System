@@ -2,6 +2,10 @@ import java.io.*;
 import java.util.*;
 
 class Main {  
+  public void inputFile(String file){
+    
+  }
+  
   public static void main(String[] args) {
     Map<String, Student> studentsMap = new HashMap<String, Student>();
 
