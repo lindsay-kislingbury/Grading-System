@@ -62,8 +62,7 @@ class Main {
     }
     
     //Print all students to check results
-    for(String name : studentsMap.keySet()){
-      studentsMap.get(name).printInfo();
-    }
+    
+    
   }
 }
