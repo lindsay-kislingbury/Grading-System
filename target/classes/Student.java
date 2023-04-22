@@ -25,57 +25,62 @@ public class Student {
     finalScores = new ArrayList<Integer>();
   }
 
-  //Equals Method compares student by name
+  // Equals Method compares student by name
   public boolean equals(Student s) {
-    if (this.name.equals(s.name)) return true;
-    else return false;
+    if (this.name.equals(s.name))
+      return true;
+    else
+      return false;
   }
 
-  //Add a score
+  // Add a score
   public void addScore(String header, int score) {
-    if(header.toLowerCase().contains("homework")){
+    if (header.toLowerCase().contains("homework")) {
       hwScores.add(score);
-    }
-    else if(header.toLowerCase().contains("quiz")){
+    } else if (header.toLowerCase().contains("quiz")) {
       quizScores.add(score);
-    }
-    else if(header.toLowerCase().contains("midterm")){
+    } else if (header.toLowerCase().contains("midterm")) {
       midtermScores.add(score);
-    }
-    else if(header.toLowerCase().contains("final")){
+    } else if (header.toLowerCase().contains("final")) {
       finalScores.add(score);
     }
-    //else throw an exception?
+    // else throw an exception?
   }
 
   // Print
   public void printInfo() {
-    for(int i=0; i<15; i++) System.out.print("-");
+    for (int i = 0; i < 15; i++)
+      System.out.print("-");
     System.out.println();
     System.out.println(name);
-    for(int i=0; i<15; i++) System.out.print("-");
+    for (int i = 0; i < 15; i++)
+      System.out.print("-");
     System.out.println();
-    if(!hwScores.isEmpty()){
+    if (!hwScores.isEmpty()) {
       System.out.printf("%12s", "Homework:\t");
-      for(int s : hwScores) System.out.print(s + " ");
+      for (int s : hwScores)
+        System.out.print(s + " ");
       System.out.println("\n");
     }
-    if(!quizScores.isEmpty()){
+    if (!quizScores.isEmpty()) {
       System.out.printf("%12s", "Quiz:\t");
-      for(int s : quizScores) System.out.print(s + " ");
+      for (int s : quizScores)
+        System.out.print(s + " ");
       System.out.println("\n");
     }
-    if(!midtermScores.isEmpty()){
+    if (!midtermScores.isEmpty()) {
       System.out.printf("%12s", "Midterm:\t");
-      for(int s : midtermScores) System.out.print(s + " ");
+      for (int s : midtermScores)
+        System.out.print(s + " ");
       System.out.println("\n");
     }
-    if(!finalScores.isEmpty()){
+    if (!finalScores.isEmpty()) {
       System.out.printf("%12s", "Final:\t");
-      for(int s : finalScores) System.out.print(s + " ");
+      for (int s : finalScores)
+        System.out.print(s + " ");
       System.out.println("\n");
     }
-    
+
   }
 
 }
