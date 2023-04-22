@@ -1,0 +1,14 @@
+Name	Points for final exam	Points for Homework
+Emma	97	22
+Olivia	67	25
+Amelia	81	16
+Charlotte	63	20
+Joe	92	23
+Charlie	51	30
+Patrick	95	30
+James	89	29
+Bob	91	30
+Bill	75	24
+Julie	62	21
+Jennie	65	18
+Denise	71	10

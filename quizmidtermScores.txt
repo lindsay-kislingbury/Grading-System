@@ -1,6 +1,0 @@
-Points for quiz	Name	Points for midterm
-20	Bill	55
-15	Cynthia	48
-7	Joe	23
-74	Olivia	50
-41	Nick	39

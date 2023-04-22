@@ -2,62 +2,65 @@ import java.io.*;
 import java.util.*;
 
 class Main {  
-  public void inputFile(String file){
-    
-  }
-  
-  public static void main(String[] args) {
-    Map<String, Student> studentsMap = new HashMap<String, Student>();
-
-    //TODO: make this a function where user can enter file name
-    //and can be called multiple times
-    File file = new File("quizmidtermScores.txt");  
+  //File Reader Method
+  public static void inputFile(String input, Map<String, Student> studentsMap){
+    File file = new File(input);  
     try {
       Scanner fileScnr = new Scanner(file);
+
+      //Store headings in array. Determine index of Name
       String[] headers = fileScnr.nextLine().split("\t");
-      String[] line;
-      Character type = ' ';
-      int score = 0;
-      String name = "";
+      int nameIndex = 0;
+      for(int i=0; i<headers.length; i++){
+        if(headers[i].toLowerCase().contains("name")){
+          nameIndex = i;
+        }
+      }
+
+      //Loop through remaining lines
+      //If student already exits, add scores
+      //Otherwise, create new student and add scores
       while (fileScnr.hasNext()) {  
         String lineJustRead = fileScnr.nextLine(); 
-        line = lineJustRead.split("\t"); 
-
-        //loop through the rest of the data and store in the correct attribute
+        String[] line = lineJustRead.split("\t"); 
+        String name = line[nameIndex];
         for(int i=0; i<headers.length; i++){ 
-          if(headers[i].toLowerCase().contains("name")){   
-            name = line[i];
-          }
-          else if(headers[i].toLowerCase().contains("quiz")){
-            type = 'Q';
-            score = Integer.parseInt(line[i]);
-          }
-          else if(headers[i].toLowerCase().contains("midterm")){
-           type = 'M';
-           score = Integer.parseInt(line[i]);
-          }
-          else if(headers[i].toLowerCase().contains("final")){
-            type = 'F';
-            score = Integer.parseInt(line[i]);
-          }
-
-          //if student exists, add score
-          //otherwise, add new student
+          if(i == nameIndex) continue;
           if(studentsMap.containsKey(name)){
-            studentsMap.get(name).addScore(type, score);
+            studentsMap.get(name).addScore(headers[i], Integer.parseInt(line[i]));
           }
           else{
             Student tempStudent = new Student(name);
-            tempStudent.addScore(type, score);
+            tempStudent.addScore(headers[i], Integer.parseInt(line[i]));
             studentsMap.put(name, tempStudent);
           }
-        }
+        } 
       }
+      
       fileScnr.close();
     } catch (FileNotFoundException e) { //TODO: more exceptions? different kind?
       e.printStackTrace();
     }
+  }
 
+  //MAIN//
+  public static void main(String[] args) {
+    Scanner scnr = new Scanner(System.in);
+    //Declare and Initialize HashMap<key, value> key is name, value is student Object
+    Map<String, Student> studentsMap = new HashMap<String, Student>();
+    
+    //Get file name
+    System.out.println("Welcome to grade reader!\n");
+    System.out.println("Enter the file name to read: ");
+    String fileName = scnr.nextLine();
+    
+    //Read files
+    while(fileName != ""){
+      inputFile(fileName+".txt", studentsMap);
+      System.out.println("Enter another file name or press Enter to continue: ");
+      fileName = scnr.nextLine();
+    }
+    
     //Print all students to check results
     for(String name : studentsMap.keySet()){
       studentsMap.get(name).printInfo();
