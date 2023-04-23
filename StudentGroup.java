@@ -8,6 +8,7 @@ class StudentGroup{
   //Constructor: Create Hashmap
   public StudentGroup(){
     studentsMap = new HashMap<String, Student>();
+    finalScores = new HashMap<String, Integer>();
   }
 
   
@@ -37,7 +38,7 @@ class StudentGroup{
    - of Olivia’s score for the final exam, just change it; otherwise, 
    - print “no such score exists.”
   */
-  public void changeScore(int score){
+  public void changeScore(String name, int score){
     //call Student.setScore()
   }
 
@@ -120,7 +121,7 @@ class StudentGroup{
   }
 
   //Validate name contains only letters
-  public boolean nameValidator(String input){
+  public void nameValidator(String input){
     boolean valid = true;
     for(int i=0; i<input.length(); i++){
       if(!Character.isLetter(input.charAt(i))){
@@ -130,11 +131,10 @@ class StudentGroup{
     if(!valid){
       throw new IllegalArgumentException("Only Letters Accepted");
     }
-    return valid;
   }
 
   //Validate score is greater than 0 and less than 100
-  public boolean scoreValidator(int score){
+  public void scoreValidator(int score){
     boolean valid = true;
     if(score < 0 || score > 100){
       valid = false;
@@ -142,7 +142,6 @@ class StudentGroup{
     if(!valid){
       throw new IllegalArgumentException("Only Scores (0 - 100) Accepted");
     }
-    return valid;
   }
 
 /* Print out the details of one specific student
@@ -156,8 +155,7 @@ class StudentGroup{
     if(studentsMap.get(name) == null){
       System.out.println("No Such Student Exists");
     } else {
-      Student s = studentsMap.get(name);
-      s.printInfo();
+      studentsMap.get(name).printInfo();
     }
   }
 
@@ -182,19 +180,13 @@ class StudentGroup{
     }
   }
 
-  //file reader helper
-  public Character parseHeader(String header) {
-    Character type = ' ';
-    if (header.toLowerCase().contains("homework")) {
-      type = 'H';
-    } else if (header.toLowerCase().contains("quiz")) {
-      type = 'Q';
-    } else if (header.toLowerCase().contains("midterm")) {
-      type = 'M';
-    } else if (header.toLowerCase().contains("final")) {
-      type = 'F';
+  public void reMap(Student s){
+    if(studentsMap.get(s.getName()) == null){
+      studentsMap.put(s.getName(), s);
     }
-    return type;
+    else{
+      //update existing student
+    }
   }
   
   //File Reader 
@@ -210,24 +202,34 @@ class StudentGroup{
         }
       }
       while (fileScnr.hasNext()) {  
+        boolean exists = false;
         String lineJustRead = fileScnr.nextLine(); 
         String[] line = lineJustRead.split("\t"); 
         String name = line[nameIndex];
-        Character type = ' ';
-        int score = 0;
+        if(studentsMap.get(name) != null){
+          exists = true;
+        }
         for(int i=0; i<headers.length; i++){ 
           if(i == nameIndex) continue;
-          type = parseHeader(headers[i]);
-          score = Integer.parseInt(line[i]);
-          if(studentsMap.containsKey(name)){
-            studentsMap.get(name).setScore(type, score);
+          if(headers[i].contains("homework")) {
+            if(exists){
+              studentsMap.get(name).setHomework(Integer.parseInt(line[i]));
+            }
+            else{
+              Student tempStudent = new Student();
+              tempStudent.setHomework(Integer.parseInt(line[i]));
+              studentsMap.put(name, tempStudent);
+            }
           }
-          else{
-            Student tempStudent = new Student();
-            tempStudent.setName(name);
-            tempStudent.setScore(type, score);
-            studentsMap.put(name, tempStudent);
+            /*
+          } else if (header[i].contains("quiz")) {
+            tempStudent.setQuiz(line[i]);
+          } else if (header[i].contains("midterm")) {
+            tempStudent.setMidterm(line[i]);
+          } else if (header[i].contains("final")) {
+            tempStudent.setFinalExam(line[i]);
           }
+          */
         } 
       }
       System.out.println("File Read Successfully!");

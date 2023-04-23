@@ -27,28 +27,30 @@ public class Student {
     finalExam = f;
     finalScore = 0;
   }
+  
+  public String getName(){
+    return name;
+  }
 
   //Set Name
   public void setName(String name){
     this.name = name;
   }
-  
-  //Set Score
-  public void setScore(Character type, int score){
-    switch(type){
-      case 'H':
-        homework = score;
-        break;
-      case 'Q':
-        quiz = score;
-        break;
-      case 'M':
-        quiz = score;
-        break;
-      case 'F':
-        finalExam = score;
-        break;
-    }
+
+  public void setHomework(int homework){
+    this.homework = homework;
+  }
+
+  public void setQuiz(int homework){
+    this.homework = homework;
+  }
+
+    public void setMidterm(int homework){
+    this.homework = homework;
+  }
+
+    public void setFinalExam(int homework){
+    this.homework = homework;
   }
 
   // Equals Method compares student by name
