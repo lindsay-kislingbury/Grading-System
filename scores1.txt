@@ -1,12 +1,12 @@
-Points for quiz	Name	Points for midterm	Points for Quiz
-20	Bill	55	16
-15	Cynthia	48	17
-7	Joe	23	20
-14	Olivia	50	11
-19	Nick	39	12
-20	Patrick	45	11
-8	April	22	5
-10	James	37	12
-18	Bob	47	20
-19	Bill	44	18
-15	Julie	48	17
+Points for quiz	Name	Points for homework
+20	Bill	55
+15	Cynthia	48
+7	Joe	23
+14	Olivia	50
+19	Nick	39
+20	Patrick	45
+8	April	22
+10	James	37
+18	Bob	47
+19	Bill	44
+15	Julie	48
