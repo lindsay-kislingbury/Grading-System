@@ -1,8 +1,16 @@
-TODO:    
-----
+TODO: WAIT UNTIL AFTER MEETING WITH PROF
+----   
+
+- StudentGroup.addScore()
+- StudentGroup.changeName()
+- StudentGroup.curveGrade()
+- StudentGroup.getFinalScore()
+
 
 COMMENTS:    
 ----
+- Right now, there is main menu for quick testing of important functions. For the final submission, we could make this conform to what prof wants for output (???)
+- addStudent() method is complete. try entering invalid values. Should be pretty bulletproof.
 - Content of files scores1, scores2, scores3:
   - **scores1**: Points for quiz, points for homework
   - **scores2**: Points for final exam

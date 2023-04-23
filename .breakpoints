@@ -4,8 +4,16 @@
       {
         "id": "844a46f2-d134-465c-ade3-b4929b4a6fa4",
         "line": 1,
-        "version": 14466,
+        "version": 14554,
         "index": 0
+      }
+    ],
+    "StudentGroup.java": [
+      {
+        "id": "35904a09-004b-41a6-9677-bf504c335ad2",
+        "line": 47,
+        "version": 3458,
+        "index": 1666
       }
     ]
   }
