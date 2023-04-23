@@ -46,7 +46,7 @@ public class Student {
         quiz = score;
         break;
       case 'F':
-        finalExam = score
+        finalExam = score;
         break;
     }
   }

@@ -172,7 +172,8 @@ class StudentGroup{
   If the student we want to delete does not exist, output 
   "No such student exists"     
 */ 
-  public void deleteStudent(String name){
+  public void deleteStudent(){
+    String name = ""; //TODO: GET FROM KEYBOARD AND VALIDATE
     if(studentsMap.get(name) == null){
       System.out.println("No Such Student Exists");
     } else {
@@ -193,6 +194,7 @@ class StudentGroup{
     } else if (header.toLowerCase().contains("final")) {
       type = 'F';
     }
+    return type;
   }
   
   //File Reader 
@@ -211,10 +213,12 @@ class StudentGroup{
         String lineJustRead = fileScnr.nextLine(); 
         String[] line = lineJustRead.split("\t"); 
         String name = line[nameIndex];
-        Character type = parseHeader(header[i]);
-        int score = Integer.parseInt(line[i]);
+        Character type = ' ';
+        int score = 0;
         for(int i=0; i<headers.length; i++){ 
           if(i == nameIndex) continue;
+          type = parseHeader(headers[i]);
+          score = Integer.parseInt(line[i]);
           if(studentsMap.containsKey(name)){
             studentsMap.get(name).setScore(type, score);
           }

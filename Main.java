@@ -42,7 +42,7 @@ class Main {
                     break;
           case '3': System.out.println("TODO: changeScore\n");
                     break;
-          case '4': group.deleteStudent();
+          case '4': System.out.println("TODO: deleteStudent\n");
                     break;
           case '5': System.out.println("Enter Student Name: ");
                     String name = scnr.nextLine();
