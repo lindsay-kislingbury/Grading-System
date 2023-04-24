@@ -3,12 +3,10 @@ import java.io.*;
 
 class StudentGroup{
   private Map<String, Student> studentsMap;  
-  private Map<String, Integer> finalScores;
 
   //Constructor: Create Hashmap
   public StudentGroup(){
     studentsMap = new HashMap<String, Student>();
-    finalScores = new HashMap<String, Integer>();
   }
 
   
@@ -71,56 +69,19 @@ class StudentGroup{
    - Possible Exception Handling: if students’ scores are (less than) <0
    - and (greater than)>100 IllegalArgumentException occurs. 
    - Please keep asking for the new input if those exceptions happen.
-*/
-  public void addStudent(){
-    Scanner scnr = new Scanner(System.in);
-    boolean again = false;
-    do{
-      again = false;
-      try{
-        System.out.println("ADD A STUDENT");
-        System.out.println("Enter the Student Name: ");
-        String name = scnr.nextLine();
-        nameValidator(name);
-        if(studentsMap.containsKey(name)){
-          System.out.println("The student already exists");
-          again = true;
-        }
-        else{
-          System.out.println("Enter Homework Score: ");
-          int h = scnr.nextInt();
-          scoreValidator(h);
-          System.out.println("Enter Quiz Score: ");
-          int q = scnr.nextInt();
-          scoreValidator(q);
-          System.out.println("Enter Midterm Score: ");
-          int m = scnr.nextInt();
-          scoreValidator(m);
-          System.out.println("Enter Final Exam Score: ");
-          int f = scnr.nextInt();
-          scoreValidator(f);
-          createStudent(name, h, q, m, f);
-        }
-      }catch(InputMismatchException e){
-        System.out.println(e.toString());
-        String buffer = scnr.nextLine(); 
-        again = true;
-      }catch(IllegalArgumentException ee){
-        System.out.println(ee.toString());
-        again = true;
-      }  
-    }while(again);
+  */
+  //ADD STUDENT
+  public void addStudent(String name, int h, int q, int m, int f){
+    if(studentsMap.get(name) == null){
+      System.out.println("The student " + name + " already exists");
+    }
+    else{
+      Student tempStudent = new Student(name, h, q, m, f);
+      studentsMap.put(name, tempStudent);
+    } 
   }
 
-  //Create Student Object, add to Map
-  public void createStudent(String name, int h, int q, int m, int f){
-    Student tempStudent = new Student(name, h, q, m, h);
-    studentsMap.put(name, tempStudent);
-    System.out.println("Student Added Successfully!");
-    tempStudent.printInfo();
-  }
-
-  //Validate name contains only letters
+  //NAME VALIDATION
   public void nameValidator(String input){
     boolean valid = true;
     for(int i=0; i<input.length(); i++){
@@ -133,7 +94,7 @@ class StudentGroup{
     }
   }
 
-  //Validate score is greater than 0 and less than 100
+  //SCORE VALIDATION
   public void scoreValidator(int score){
     boolean valid = true;
     if(score < 0 || score > 100){
@@ -144,100 +105,30 @@ class StudentGroup{
     }
   }
 
-/* Print out the details of one specific student
-  - by using Checkstudent(“Olivia”). 
-  - If no such student exists, print “no such student exists”
-  - otherwise, just print out this student’s scores.
-  - If we have already called GetFinalScore and CurveGrade 
-  - they need to be printed 
-*/
-  public void checkStudent(String name){
-    if(studentsMap.get(name) == null){
-      System.out.println("No Such Student Exists");
+  //DELETE STUDENT
+  public void deleteStudent(String name){
+    if(studentsMap.get(name) != null){
+      studentsMap.remove(name);
     } else {
-      studentsMap.get(name).printInfo();
+      System.out.println("No Such Student Exists");
     }
   }
-
-  //FOR TESTING: Print all students in the Map
+  
+  //PRINT ALL
   public void printAll(){
     for(String k : studentsMap.keySet()){
       studentsMap.get(k).printInfo();
     }
   }
 
-/* Method delete details (name and scores) of student. 
-  If the student we want to delete does not exist, output 
-  "No such student exists"     
-*/ 
-  public void deleteStudent(){
-    String name = ""; //TODO: GET FROM KEYBOARD AND VALIDATE
-    if(studentsMap.get(name) == null){
-      System.out.println("No Such Student Exists");
+  //CHECK STUDENT
+  public void checkStudent(String name){
+    if(studentsMap.get(name) != null){
+      studentsMap.get(name).printInfo();
     } else {
-      studentsMap.remove(name);
-      System.out.println(name + "Removed Successfully!");
-    }
-  }
-
-  public void reMap(Student s){
-    if(studentsMap.get(s.getName()) == null){
-      studentsMap.put(s.getName(), s);
-    }
-    else{
-      //update existing student
+      System.out.println("No Such Student Exists");
     }
   }
   
-  //File Reader 
-  public void inputFile(String input){
-    File file = new File(input);  
-    try {
-      Scanner fileScnr = new Scanner(file);
-      String[] headers = fileScnr.nextLine().split("\t");
-      int nameIndex = 0;
-      for(int i=0; i<headers.length; i++){
-        if(headers[i].toLowerCase().contains("name")){
-          nameIndex = i;
-        }
-      }
-      while (fileScnr.hasNext()) {  
-        boolean exists = false;
-        String lineJustRead = fileScnr.nextLine(); 
-        String[] line = lineJustRead.split("\t"); 
-        String name = line[nameIndex];
-        if(studentsMap.get(name) != null){
-          exists = true;
-        }
-        for(int i=0; i<headers.length; i++){ 
-          if(i == nameIndex) continue;
-          if(headers[i].contains("homework")) {
-            if(exists){
-              studentsMap.get(name).setHomework(Integer.parseInt(line[i]));
-            }
-            else{
-              Student tempStudent = new Student();
-              tempStudent.setHomework(Integer.parseInt(line[i]));
-              studentsMap.put(name, tempStudent);
-            }
-          }
-            /*
-          } else if (header[i].contains("quiz")) {
-            tempStudent.setQuiz(line[i]);
-          } else if (header[i].contains("midterm")) {
-            tempStudent.setMidterm(line[i]);
-          } else if (header[i].contains("final")) {
-            tempStudent.setFinalExam(line[i]);
-          }
-          */
-        } 
-      }
-      System.out.println("File Read Successfully!");
-      fileScnr.close();
-    } catch (FileNotFoundException e) { 
-      System.out.println("FILE NOT FOUND: " + e.getMessage());
-    }
-  }
-
   
 }

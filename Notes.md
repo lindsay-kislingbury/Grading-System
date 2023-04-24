@@ -1,10 +1,17 @@
 TODO: WAIT UNTIL AFTER MEETING WITH PROF
 ----   
 
-- StudentGroup.addScore()
-- StudentGroup.changeName()
-- StudentGroup.curveGrade()
-- StudentGroup.getFinalScore()
+- changeScore() function in main
+  - Declare Scanner object inside this function to take input
+  - use Map function Map.get(name) to return the correct student.
+  - call Student.setName(newName) to set name
+  - dont worry about validation until it's working as expected.
+  - nameValidator() function is already created in main.
+    - It takes no arguments, uses it's own scanner to take the input and returns the string.
+      -   `String name = inputValidator();`
+    -   It throws an IllegalArgumentMistmatch excpeption which you need to catch and print it's message
+      -   `System.out.println(e.toString());`
+  - **REFER TO changeScore METHOD** which is similar. This function will be simpiler because you dont need to ask more info. just need to get the name
 
 
 COMMENTS:    
