@@ -194,23 +194,44 @@ class Main {
 
 
   //CHANGE NAME
+  /*
+  - Change an existing student’s name.
+  - If the name we want to change does not exist, print “no such student exists”; otherwise, we just change it.
+  */
   public void changeName(String name, Map<String, Student> studentsMap){
+    //**missing name input. need to declare and accept name from scnr. then pass to setName
     //Declare Scanner object inside this function to take input
-    //use Map function Map.get(name) to return the correct student.
-    //call Student.setName(newName) to set name
-    //use nameValidator() function to validate new name. 
-      //the function takes no arguments, 
-      //uses its own scanner to take input and returns a string
+    Scanner scnr = new Scanner(System.in);
+    boolean again = false;
+    do{
+      System.out.println("CHANGE NAME");
+      again = false;
+      try{
+       System.out.println("Enter Name of Student to Change:");
+         newName = nameValidator();
+          if(studentsMap.get(name)){
+            studentsMap.get(name).setName(newName);
+          } 
+         else {
+          System.out.println("No Such Student Exists");
+        }
+      } catch(IllegalArgumentException ee) {
+        System.out.println(ee.toString());
+        again = true;
+      }
+    }while(again);
+    
+  //use Map function Map.get(name) to return the correct student
+  //call Student.setName(newName) to set name
+  //use nameValidator() function to validate new name. 
+  //the function takes no arguments, 
+  //uses its own scanner to take input and returns a string
       //String newName = nameValidator()
       //this function throws a IllegalArgumentException which you need to catch
       //when you catch the exception, 
       //use System.out.println(ee.toString()) to print the message
       //REFER TO changeScore function. should be similear 
   }
-
-  
-
-  
   public static void main(String[] args) {
     Scanner scnr = new Scanner(System.in);
     Map<String, Student> studentsMap = new HashMap<String, Student>();  
@@ -248,7 +269,8 @@ class Main {
             break;
           }
           case '2': {
-            System.out.println("TODO: changeName\n");
+            System.out.println("TODO: CHANGE NAME");
+            //changeName(studentsMap);
             break;
           }       
           case '3': {
