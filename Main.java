@@ -198,19 +198,22 @@ class Main {
   - Change an existing student’s name.
   - If the name we want to change does not exist, print “no such student exists”; otherwise, we just change it.
   */
-  public void changeName(String name, Map<String, Student> studentsMap){
+
+  public static void changeName(Map<String, Student> studentsMap){
     //**missing name input. need to declare and accept name from scnr. then pass to setName
-    //Declare Scanner object inside this function to take input
     Scanner scnr = new Scanner(System.in);
+    
     boolean again = false;
     do{
       System.out.println("CHANGE NAME");
       again = false;
       try{
        System.out.println("Enter Name of Student to Change:");
-         newName = nameValidator();
-          if(studentsMap.get(name)){
-            studentsMap.get(name).setName(newName);
+        String oldName = scnr.nextLine();
+          if(studentsMap.get(oldName) != null){
+            System.out.println("Enter the new name: ");
+            String newName = nameValidator();
+            studentsMap.get(oldName).setName(newName);
           } 
          else {
           System.out.println("No Such Student Exists");
@@ -231,7 +234,11 @@ class Main {
       //when you catch the exception, 
       //use System.out.println(ee.toString()) to print the message
       //REFER TO changeScore function. should be similear 
+    
   }
+
+
+  //MAIN
   public static void main(String[] args) {
     Scanner scnr = new Scanner(System.in);
     Map<String, Student> studentsMap = new HashMap<String, Student>();  
@@ -270,7 +277,7 @@ class Main {
           }
           case '2': {
             System.out.println("TODO: CHANGE NAME");
-            //changeName(studentsMap);
+            changeName(studentsMap);
             break;
           }       
           case '3': {
