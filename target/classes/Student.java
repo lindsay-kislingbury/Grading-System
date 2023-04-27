@@ -2,7 +2,6 @@ import java.util.*;
 import java.io.*;
 
 public class Student {
-
   private Map<String, HashMap<String, Integer>> studentsMap;
 
   public Student(){
@@ -54,20 +53,9 @@ public class Student {
         }
       }
       fileScnr.close();
+      System.out.println(studentsMap.toString());
     } catch (FileNotFoundException e) { 
       System.out.println(e.getMessage());
-    }
-  }
-
-  //CHECK STUDENT
-  public void checkStudent(String name){
-    System.out.println(studentsMap.get(name));
-  }
-
-  //FOR TESTING. PRINT ALL
-  public void printAll(){
-    for(String k : studentsMap.keySet()){
-      checkStudent(k);
     }
   }
 
@@ -82,6 +70,10 @@ public class Student {
       try{
         System.out.println("Enter Student Name: ");
         name = scnr.nextLine();
+        if(studentsMap.get(name) != null){
+          System.out.println("The Student Already Exists");
+          continue;
+        }
         nameValidator(name);
         System.out.println("Enter Homework Score: ");
         h = scnr.nextInt();
@@ -96,58 +88,104 @@ public class Student {
         f = scnr.nextInt();
         scoreValidator(f);
         valid = true;
+        createStudent(name, h, m, q, f);
       }catch(InputMismatchException e){
         String buffer = scnr.nextLine();
-        System.out.println(e.toString() + ": Only Integers Accepted");
+        System.out.println(e.toString() + ":\nOnly Integers Accepted");
       }catch(IllegalArgumentException ee){
         System.out.println(ee.toString());
       }  
     }while(!valid);
   }
 
-  //NAME VALIDATION
+  //CREATE STUDENT [helper for addStudent()]
+  public void createStudent(String name, int h, int m, int q, int f){
+    HashMap<String, Integer> scores = new HashMap<String, Integer>();
+    scores.put("Homework", h);
+    scores.put("Midterm", m);
+    scores.put("Quiz", q);
+    scores.put("FinalExam", f);
+    studentsMap.put(name, scores);
+  }
+
+
+
+  //CHANGE NAME 
+  public void changeName(String oldName){
+    Scanner scnr = new Scanner(System.in);
+    boolean valid = false;
+    if(studentsMap.get(oldName) != null){
+      do{
+        System.out.println("Enter the Name to Change: ");
+        String newName = scnr.nextLine();
+        nameValidator(newName);
+        valid = true;
+      }while(!valid);
+    }
+    else{
+      System.out.println("No Such Student Exists");
+    }
+  }
+
+  //NAME VALIDATION [helper for addStudent()]
   public void nameValidator(String name){
-    for(int i=0; i<name.length(); i++){
-      if(!Character.isLetter(name.charAt(i))){
-        throw new IllegalArgumentException("Only Letters Accepted");
+    if(name == ""){
+      throw new IllegalArgumentException("\nNothing Entered");
+    }
+    else{
+      for(int i=0; i<name.length(); i++){
+        if(!Character.isLetter(name.charAt(i))){
+          throw new IllegalArgumentException("\nOnly Letters Accepted");
+        }
       }
     }
   }
 
-  //SCORE VALIDATION
+  //SCORE VALIDATION [helper for addStudent()]
   public void scoreValidator(int score){
     if(score < 0 || score > 100){
-      throw new IllegalArgumentException("Only Scores (0 - 100) Accepted");
+      throw new IllegalArgumentException("\nOnly Scores (0 - 100) Accepted");
+    }
+  }
+
+  //CHANGE NAME
+  
+
+  //CHECK STUDENT
+  public void checkStudent(String name){
+    for(String student : studentsMap.keySet()) {
+      if(student == name){
+        System.out.println(student);
+        HashMap<String, Integer> scores = studentsMap.get(student);
+        if(scores.get("Homework") != null){
+          System.out.println("Homework: " + scores.get("Homework"));  
+        }
+        if(scores.get("Quiz") != null){
+          System.out.println("Quiz: " + scores.get("Quiz"));  
+        }
+        if(scores.get("Midterm") != null){
+          System.out.println("Midterm: " + scores.get("Midterm")); 
+        }
+        if(scores.get("FinalExam") != null){
+          System.out.println("Final Exam: " + scores.get("FinalExam"));
+        }
+        System.out.println();
+      }
+    }
+  }
+
+  //FOR TESTING. PRINT ALL
+  public void printAll(){
+    for(String key : studentsMap.keySet()){
+      checkStudent(key);
     }
   }
 
   
 
+  
+
   /*
-  private String name;
-  private Map<String, Integer> scores;
-  private double finalGrade;
-
-  // Default Constructor
-  public Student() {
-    this.name = "empty";
-    scores = new HashMap<String, Integer>();
-  }
-
-  public Student(String name){
-    this.name = name;
-    scores = new HashMap<String, Integer>();
-  }
-
-  // Non-Default Constructor
-  public Student(String name, int h, int q, int m, int f) {
-    this.name = name;
-    scores = new HashMap<String, Integer>();
-    scores.put("Homework", h);
-    scores.put("Quiz", q);
-    scores.put("Midterm", m);
-    scores.put("FinalExam", f);
-  }
 
   //Set Name
   public void setName(String name){

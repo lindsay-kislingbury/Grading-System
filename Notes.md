@@ -1,22 +1,19 @@
+*updated 4/26*
+
 TODO:
 ----   
-
-1. changeScore() function in main
-    - Declare Scanner object inside this function to take input
-    - use Map function Map.get(name) to return the correct student.
-    - call Student.setName(newName) to set name
-    - dont worry about validation until it's working as expected.
-    - nameValidator() function is already created in main.
-      - It takes no arguments, uses it's own scanner to take the input and returns the string.
-        -   `String name = inputValidator();`
-      -   It throws an IllegalArgumentMistmatch excpeption which you need to catch and print it's message
-        -   `System.out.println(e.toString());`
-    - **REFER TO changeScore METHOD** which is similar. This function will be simpiler because you dont need to ask more info. just need to get the name
+1. Want to automatically change name to camel case when entered. 
 2. Need to calculate final score and curve grades. How does she want this output?
-3. 
+3. Need to make better input files that demonstrate the various conditions listed in the red text on instructions
+    - ex: some students are missing scores, more repeated score type
+4. Need to calculate final score and curve grades. How does she want this output?
+5. ~~changeScore() function~~
 
 COMMENTS:    
 ----
+- Extra validation completed so far:
+    - addStudent() also checks if you entered nothing. If so, it throws an IllegalArgument message with relevant message.
+    - addStudent() makes you start completely over when you enter an invalid score. We could make it keep asking for that score instead but it would decrease readability, and double the lines of code for that function. 
 - Right now, there is main menu for quick testing of important functions. For the final submission, we could make this conform to what prof wants for output (???)
 - addStudent() method is complete. try entering invalid values. Should be pretty bulletproof.
 - Content of files scores1, scores2, scores3:
