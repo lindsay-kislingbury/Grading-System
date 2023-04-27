@@ -2,52 +2,7 @@ import java.io.*;
 import java.util.*;
 
 class Main {  
-  
-  //FILE READER 
-  public static void inputFile(String input, Map<String, Student> studentsMap){
-    File file = new File(input);  
-    try {
-      Scanner fileScnr = new Scanner(file);
-      String[] headers = fileScnr.nextLine().split("\t");
-      int nameIndex = 0;
-      for(int i=0; i<headers.length; i++){
-        if(headers[i].toLowerCase().contains("name")){
-          nameIndex = i;
-        }
-      }
-      while (fileScnr.hasNext()) {  
-        String[] line = fileScnr.nextLine().split("\t"); 
-        String name = line[nameIndex];
-        String type = "";
-        int score = 0;
-        for(int i=0; i<headers.length; i++){ 
-          if(i == nameIndex) continue;
-          score = Integer.parseInt(line[i]);
-          if(headers[i].contains("homework")) {
-            type = "Homework";
-          } else if (headers[i].contains("quiz")) {
-            type = "Quiz";
-          } else if (headers[i].contains("midterm")) {
-            type = "Midterm";
-          } else if (headers[i].contains("final")) {
-            type = "FinalExam";
-          }
-        }
-        if(studentsMap.get(name) != null){
-          studentsMap.get(name).setScore(type, score);
-        }
-        else{
-          Student tempStudent = new Student(name);
-          tempStudent.setScore(type, score);
-          studentsMap.put(name, tempStudent);
-        }
-      }
-      fileScnr.close();
-    } catch (FileNotFoundException e) { 
-      System.out.println(e.getMessage());
-    }
-  }
-
+  /*
   //ADD STUDENT
   public static void addStudent(Map<String, Student> studentsMap){
     Scanner scnr = new Scanner(System.in);
@@ -198,7 +153,7 @@ class Main {
   - Change an existing student’s name.
   - If the name we want to change does not exist, print “no such student exists”; otherwise, we just change it.
   */
-
+  /*
   public static void changeName(Map<String, Student> studentsMap){
     //**missing name input. need to declare and accept name from scnr. then pass to setName
     Scanner scnr = new Scanner(System.in);
@@ -236,13 +191,16 @@ class Main {
       //REFER TO changeScore function. should be similear 
     
   }
-
+*/
 
   //MAIN
   public static void main(String[] args) {
     Scanner scnr = new Scanner(System.in);
-    Map<String, Student> studentsMap = new HashMap<String, Student>();  
-
+    Student students = new Student();
+    students.inputFile("scores1.txt");
+    students.printAll();
+    students.addStudent();
+/*
       System.out.println("GRADE CALCULATOR");
 
       //Read files
@@ -253,6 +211,7 @@ class Main {
         System.out.println("Enter Another File Or Press Enter to Continue: ");
         fileName = scnr.nextLine();
       }
+    
       //Program Menu
       String choice = "";
       do{
@@ -297,6 +256,6 @@ class Main {
         System.out.println("Goodbye!");
       }
     }while(choice != "");
-
+`*/
   }
 }

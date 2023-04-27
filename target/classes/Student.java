@@ -1,6 +1,129 @@
 import java.util.*;
+import java.io.*;
 
 public class Student {
+
+  private Map<String, HashMap<String, Integer>> studentsMap;
+
+  public Student(){
+    studentsMap = new HashMap<String, HashMap<String, Integer>>();
+  }
+
+  //FILE READER 
+  public void inputFile(String input){
+    File file = new File(input);  
+    try {
+      Scanner fileScnr = new Scanner(file);
+      String[] headers = fileScnr.nextLine().split("\t");
+      int nameIndex = 0;
+      for(int i=0; i<headers.length; i++){
+        if(headers[i].toLowerCase().contains("name")){
+          nameIndex = i;
+        }
+      }
+      while (fileScnr.hasNext()) {  
+        String[] line = fileScnr.nextLine().split("\t"); 
+        String name = line[nameIndex];
+        String type = "";
+        int score = 0;
+        for(int i=0; i<headers.length; i++){ 
+          if(i == nameIndex) continue;
+          if(headers[i].contains("homework")) {
+            type = "Homework";
+            score = Integer.parseInt(line[i]);
+          } else if (headers[i].contains("quiz")) {
+            type = "Quiz";
+            score = Integer.parseInt(line[i]);
+          } else if (headers[i].contains("midterm")) {
+            type = "Midterm";
+            score = Integer.parseInt(line[i]);
+          } else if (headers[i].contains("final")) {
+            type = "FinalExam";
+            score = Integer.parseInt(line[i]);
+          }
+          if(studentsMap.get(name) != null){
+            studentsMap.get(name).put(type, score);
+          }
+          else{
+            Map tempScore = new HashMap<String, Integer>();
+            tempScore.put(type, score);
+            HashMap tempStudent = new HashMap<String, HashMap<String, Integer>>();
+            tempStudent.put(name, tempScore);
+            studentsMap.put(name, tempStudent);
+          }
+        }
+      }
+      fileScnr.close();
+    } catch (FileNotFoundException e) { 
+      System.out.println(e.getMessage());
+    }
+  }
+
+  //CHECK STUDENT
+  public void checkStudent(String name){
+    System.out.println(studentsMap.get(name));
+  }
+
+  //FOR TESTING. PRINT ALL
+  public void printAll(){
+    for(String k : studentsMap.keySet()){
+      checkStudent(k);
+    }
+  }
+
+  //ADD STUDENT
+  public void addStudent(){
+    Scanner scnr = new Scanner(System.in);
+    boolean valid = false;
+    String name = "";
+    int h=0, m=0, q=0, f=0;
+    do{
+      System.out.println("\nADD STUDENT");
+      try{
+        System.out.println("Enter Student Name: ");
+        name = scnr.nextLine();
+        nameValidator(name);
+        System.out.println("Enter Homework Score: ");
+        h = scnr.nextInt();
+        scoreValidator(h);
+        System.out.println("Enter Midterm Score: ");
+        m = scnr.nextInt();
+        scoreValidator(m);
+        System.out.println("Enter Quiz Score: ");
+        q = scnr.nextInt();
+        scoreValidator(q);
+        System.out.println("Enter Final Exam Score: ");
+        f = scnr.nextInt();
+        scoreValidator(f);
+        valid = true;
+      }catch(InputMismatchException e){
+        String buffer = scnr.nextLine();
+        System.out.println(e.toString() + ": Only Integers Accepted");
+      }catch(IllegalArgumentException ee){
+        System.out.println(ee.toString());
+      }  
+    }while(!valid);
+  }
+
+  //NAME VALIDATION
+  public void nameValidator(String name){
+    for(int i=0; i<name.length(); i++){
+      if(!Character.isLetter(name.charAt(i))){
+        throw new IllegalArgumentException("Only Letters Accepted");
+      }
+    }
+  }
+
+  //SCORE VALIDATION
+  public void scoreValidator(int score){
+    if(score < 0 || score > 100){
+      throw new IllegalArgumentException("Only Scores (0 - 100) Accepted");
+    }
+  }
+
+  
+
+  /*
   private String name;
   private Map<String, Integer> scores;
   private double finalGrade;
@@ -65,5 +188,6 @@ public class Student {
     System.out.println("FINAL SCORE: " + scores.get("FinalScore"));
     System.out.println();
   }
+  */
   
 }
