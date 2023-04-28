@@ -2,33 +2,34 @@
 
 TODO:
 ----   
-1. Want to automatically change name to camel case when entered. 
-2. Need to calculate final score and curve grades. How does she want this output?
-3. Need to make better input files that demonstrate the various conditions listed in the red text on instructions
-    - ex: some students are missing scores, more repeated score type
-4. Need to calculate final score and curve grades. How does she want this output?
-5. ~~changeScore() function~~
+1. scores3 file not working.   
+2. ✔~~Want to automatically change name to camel case when entered.~~
+3. Need to calculate final score and curve grades. How does she want this output?
+4. Need to make better input files that demonstrate the various conditions listed in the red text on instructions
+5. Need to calculate final score and curve grades. How does she want this output?
+6. addStudent() makes you start completely over when you enter an invalid score. We could make it keep asking for that score instead but it would decrease readability, and double the lines of code for that function. 
+7. ✔~~changeName() function~~
 
 COMMENTS:    
 ----
-- Extra validation completed so far:
-    - addStudent() also checks if you entered nothing. If so, it throws an IllegalArgument message with relevant message.
-    - addStudent() makes you start completely over when you enter an invalid score. We could make it keep asking for that score instead but it would decrease readability, and double the lines of code for that function. 
-- Right now, there is main menu for quick testing of important functions. For the final submission, we could make this conform to what prof wants for output (???)
-- addStudent() method is complete. try entering invalid values. Should be pretty bulletproof.
+- currently forcing camel case on names read from file and new students added. 
+    - prevents errors and makes validation better
+- Extra validation: addStudent() also checks if you entered nothing. If so, it throws an IllegalArgument message with relevant message.
+- OUTPUT: prof said that she likes our menu output. She said this is good for the final output.
 - Content of files scores1, scores2, scores3:
-  - **scores1**: Points for quiz, points for homework
+  - **scores1**: Points for quiz, Points for homework, Points for midterm
   - **scores2**: Points for final exam
-  - **scores3**: Points for midterm, Points for make-up midterm
+  - ~~**scores3**: Points for midterm, Points for make-up midterm
     (Extra points for handling repeated score type)
     (Extra points for flexibility, the heading "Points for make-up midterm"
-    doesn't follow the naming convention)
+    doesn't follow the naming convention)~~
+    **This isnt working correctly**
 
 IDEAS:    
 ----
-- create a Unit Test Class. This would fulfill the "extra feature" for the last requirement of the project. The instructions also ask us to list our test cases.
-  - We could follow best practices for creating a Test Class here:
-    https://www.baeldung.com/java-unit-testing-best-practices
+- create changeWeights function
+- create test class
+- create addScore function
 
 REQUIREMENTS:
 ----   
