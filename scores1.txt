@@ -1,13 +1,12 @@
-Points for quiz	Name	Points for homework	Points for Midterm	
-25	bill	2	20	41
-83	Cynthia	94	18	67
-97	Joe	24	14	15
-21	Kate	50	15	10
-95	nick	4	13	1
-36	Megan	38	19	59
-23	April	38	10	25
-62	James	65	8	45
-26	bob	76	12	94
-38	Bill	5	20	13
-40	Julie	94	16	73
-74	aaron	62	16	74
+Points for quiz	Name	Points for homework	Points for Midterm
+84	bill	63	92
+71	nick	98	52
+89	Megan	94	63
+59	April	57	48
+91	James	75	57
+75	bob	64	45
+70	Bill	73	70
+72	ellise	78	67
+74	aaron	72	72
+65	olivia	52	82
+72	Julie	61	81

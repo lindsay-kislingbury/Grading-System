@@ -1,35 +1,26 @@
 *updated 4/26*
 
 TODO:
-----   
-1. scores3 file not working.   
-2. ✔~~Want to automatically change name to camel case when entered.~~
-3. Need to calculate final score and curve grades. How does she want this output?
-4. Need to make better input files that demonstrate the various conditions listed in the red text on instructions
-5. Need to calculate final score and curve grades. How does she want this output?
-6. addStudent() makes you start completely over when you enter an invalid score. We could make it keep asking for that score instead but it would decrease readability, and double the lines of code for that function. 
-7. ✔~~changeName() function~~
+----    
+1. Need to curve grades and output. store?
+2. addStudent() makes you start completely over when you enter an invalid score. We could make it keep asking for that score instead but it would decrease readability, and double the lines of code for that function. ?
 
 COMMENTS:    
 ----
-- currently forcing camel case on names read from file and new students added. 
+- right now, program outputs final score. this will be removed and final grade printed. 
+- currently forcing camel case on names read from file and input manually. 
     - prevents errors and makes validation better
 - Extra validation: addStudent() also checks if you entered nothing. If so, it throws an IllegalArgument message with relevant message.
 - OUTPUT: prof said that she likes our menu output. She said this is good for the final output.
 - Content of files scores1, scores2, scores3:
   - **scores1**: Points for quiz, Points for homework, Points for midterm
   - **scores2**: Points for final exam
-  - ~~**scores3**: Points for midterm, Points for make-up midterm
-    (Extra points for handling repeated score type)
-    (Extra points for flexibility, the heading "Points for make-up midterm"
-    doesn't follow the naming convention)~~
-    **This isnt working correctly**
+  - **scores3**: Points for midterm (repeated score type)
 
 IDEAS:    
 ----
 - create changeWeights function
 - create test class
-- create addScore function
 
 REQUIREMENTS:
 ----   
@@ -56,16 +47,16 @@ REQUIREMENTS:
 4. **deleteStudent()** ✅
   - ✔ Delete the details of the new student (like name and scores achieved). If the student we want to delete does not exist, print “no such student exists.”
 
-5. **changeName** ❌
-  - Change an existing student’s name.
-  - If the name we want to change does not exist, print “no such student exists”; otherwise, we just change it.
+5. **changeName** ✅
+  - ✔ Change an existing student’s name.
+  - ✔ If the name we want to change does not exist, print “no such student exists”; otherwise, we just change it.
 
 6. **changeScore**
   - ✔ Change one existing score.
   - ✔ If the score we want to change does not exist, print “no such score exists” otherwise, we just change it.
 
-7. **getFinalScore** ❌
-   - Get the final score according to the following grading policy and store it into the array/list that contains all scores:   
+7. **getFinalScore** ✅
+   - ✔ Get the final score according to the following grading policy and store it into the array/list that contains all scores:   
       ```
       Assessment  %  
       Quiz        20   
@@ -73,11 +64,11 @@ REQUIREMENTS:
       Midterm     20   
       Final exam  30
       ```
-   - Ensure that you have all scores of quizzes, homework, midterm, and final exam for all students.
-   - If you have all scores, just calculate the final score; otherwise, notify which scores are missing and ask for input from the keyboard
-   - Those kinds of operations will be repeated until we get all the scores. Then calculate the final score.
+   - ✔ Ensure that you have all scores of quizzes, homework, midterm, and final exam for all students.
+   - ✔ If you have all scores, just calculate the final score; otherwise, notify which scores are missing and ask for input from the keyboard
+   - ✔ Those kinds of operations will be repeated until we get all the scores. Then calculate the final score.
 
-8. **curveGrade**
+8. **curveGrade** ❌
   - Curve the final score according to the following criteria and store it into the array/list that contains all scores
     ```
     Top 10%      A
@@ -87,19 +78,20 @@ REQUIREMENTS:
     Top 100%-40% F
     ```
 
-9. ✅ **checkStudent**
+9.  **checkStudent** ✅
   - ✔ Print out the details of one specific student, i.e., Olivia, by using Checkstudent(“Olivia”)
   -  ✔ If no such student exists, print “no such student exists”; otherwise, just print out this student’s scores.
   -  ✔ If we have already called GetFinalScore and CurveGrade to calculate the final and curved scores, they also need to be printed out.
 
-10. handle all possible exceptions
+10.  **handle all possible exceptions** ✅
   - ✔ IllegalArgumentException. This exception occurs when we design the method AddStudent, and the student’s name is Olivia3 which contains digits and can not be a valid name. Similarly, if students’ scores are <0 and >100, IllegalArgumentException occurs. Please keep asking for the new input if those exceptions happen.
 
-11. ❌ One new feature
+11. One new feature ❌
 
 
 
 
 EXTRA POINTS:   
 ----   
-1. if your program is more flexible and comprehensive, you will get higher points
+1.  ✅ handle repeated score types
+2. if your program is more flexible and comprehensive, you will get higher points

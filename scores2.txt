@@ -1,14 +1,11 @@
 Name	Points for final exam
-bill	97
-cynthia	67
-Joe	81
-olivia	63
-Nick	92
-Patrick	51
-Gilbert	95
-James	89
-Bob	91
-Bill	75
-Julie	62
-April	65
-cecilia	71
+bill	46
+nick	42
+Megan	82
+April	95
+James	96
+patrick	91
+Bill	65
+Julie	70
+aaron	77
+olivia	81

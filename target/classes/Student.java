@@ -2,11 +2,11 @@ import java.util.*;
 import java.io.*;
 
 public class Student {
-  private Map<String, HashMap<String, Integer>> studentsMap;
+  private Map<String, HashMap<String, Double>> studentsMap;
   private Map<String, Double> weights;
 
   public Student(){
-    studentsMap = new HashMap<String, HashMap<String, Integer>>();
+    studentsMap = new HashMap<String, HashMap<String, Double>>();
     weights = new HashMap<String, Double>();
     weights.put("Homework", 0.3);
     weights.put("Quiz", 0.2);
@@ -30,29 +30,28 @@ public class Student {
         String[] line = fileScnr.nextLine().split("\t"); 
         String name = line[nameIndex];
         String type = "";
-        int score = 0;
+        double score = 0;
         for(int i=0; i<headers.length; i++){ 
           if(i == nameIndex) continue;
           if(headers[i].contains("homework")) {
             type = "Homework";
-            score = Integer.parseInt(line[i]);
-          } else if (headers[i].contains("quiz")) {
+            score = Double.parseDouble(line[i]);
+          } else if (headers[i].toLowerCase().contains("quiz")) {
             type = "Quiz";
-            score = Integer.parseInt(line[i]);
-          } else if (headers[i].contains("midterm")) {
+            score = Double.parseDouble(line[i]);
+          } else if (headers[i].toLowerCase().contains("midterm")) {
             type = "Midterm";
-            score = Integer.parseInt(line[i]);
-          } else if (headers[i].contains("final")) {
+            score = Double.parseDouble(line[i]);
+          } else if (headers[i].toLowerCase().contains("final")) {
             type = "Final Exam";
-            score = Integer.parseInt(line[i]);
+            score = Double.parseDouble(line[i]);
           }
           //camel case name to prevent errors later
           name = camelCase(name);
           if(studentsMap.get(name) != null){
             studentsMap.get(name).put(type, score);
-          }
-          else{
-            HashMap<String, Integer> temp = new HashMap<String, Integer>();
+          } else {
+            HashMap<String, Double> temp = new HashMap<String, Double>();
             studentsMap.put(name, temp);
             studentsMap.get(name).put(type, score);
           }
@@ -64,7 +63,7 @@ public class Student {
     }
   }
 
-  //CAMEL CASE NAME [helper for fileReader, addstudent and changename]
+  //CAMEL CASE NAME [helper for fileReader, addStudent, changeName, changeScore, checkStudent]
   public String camelCase(String input){
     String output = input.toLowerCase();
     output = output.substring(0, 1).toUpperCase() + output.substring(1);
@@ -72,8 +71,8 @@ public class Student {
   }
 
   //CREATE STUDENT [helper for addStudent()]
-  public void createStudent(String name, int h, int m, int q, int f){
-    HashMap<String, Integer> scores = new HashMap<String, Integer>();
+  public void createStudent(String name, double h, double m, double q, double f){
+    HashMap<String, Double> scores = new HashMap<String, Double>();
     name = camelCase(name);
     scores.put("Homework", h);
     scores.put("Midterm", m);
@@ -87,7 +86,7 @@ public class Student {
     Scanner scnr = new Scanner(System.in);
     boolean valid = false;
     String name = "";
-    int h=0, q=0, m=0, f=0;
+    double h=0, q=0, m=0, f=0;
     do{
       System.out.println("\nADD STUDENT");
       try{
@@ -100,26 +99,27 @@ public class Student {
         }
         nameValidator(name);
         System.out.println("Enter Homework Score: ");
-        h = scnr.nextInt();
+        h = scnr.nextDouble();
         scoreValidator(h);
         System.out.println("Enter Midterm Score: ");
-        m = scnr.nextInt();
+        m = scnr.nextDouble();
         scoreValidator(m);
         System.out.println("Enter Quiz Score: ");
-        q = scnr.nextInt();
+        q = scnr.nextDouble();
         scoreValidator(q);
         System.out.println("Enter Final Exam Score: ");
-        f = scnr.nextInt();
+        f = scnr.nextDouble();
         scoreValidator(f);
         valid = true;
         createStudent(name, h, m, q, f);
       }catch(InputMismatchException e){
         String buffer = scnr.nextLine();
-        System.out.println(e.toString() + ":\nOnly Integers Accepted");
+        System.out.println(e.toString() + ":\nOnly Numbers Accepted");
       }catch(IllegalArgumentException ee){
         System.out.println(ee.toString());
       }  
     }while(!valid);
+    
   }
 
   
@@ -142,6 +142,7 @@ public class Student {
     boolean valid = false;
     System.out.println("Enter the Name to Change: ");
     String oldName = scnr.nextLine();
+    oldName = camelCase(oldName);
     if(studentsMap.get(oldName) != null){
       do{
         System.out.println("Enter the New Name: ");
@@ -151,8 +152,7 @@ public class Student {
         valid = true;
         studentsMap.put(newName, studentsMap.remove(oldName));
       }while(!valid);
-    }
-    else{
+    } else {
       System.out.println("No Such Student Exists");
     }
   }
@@ -160,99 +160,63 @@ public class Student {
   //CALCULATE WEIGHTED SCORE [helper for getFinalScore]
   public double calcScore(String name, String type){
     Scanner scnr = new Scanner(System.in);  
+    boolean valid = false;
     if(!studentsMap.get(name).containsKey(type)){
-      System.out.printf("Enter Missing %s Score For %s: ", type, name);
-      int score = scnr.nextInt();
-      studentsMap.get(name).put(type, score);
+      do{
+        try{
+          System.out.printf("Enter Missing %s Score For %s: ", type, name);
+          double score = scnr.nextDouble();
+          scoreValidator(score);
+          studentsMap.get(name).put(type, score);
+          valid = true;
+        } catch(InputMismatchException e) {
+          System.out.println(e.toString()+ ": Only Numbers Accepted");
+          String buffer = scnr.nextLine();
+        } catch(IllegalArgumentException ee) {
+          System.out.println(ee.toString());
+        }
+      }while(!valid);
     }
     double weightedScore = (studentsMap.get(name).get(type) * weights.get(type));
     return weightedScore;
   }
 
+
   //GET FINAL SCORE
-  public double getFinalScore(){
+  public void getFinalScore(){
     Scanner scnr = new Scanner(System.in);
     System.out.println("Enter Name of Student: ");
     String name = scnr.nextLine();
+    name = camelCase(name);
     double finalScore = 0.0;
     for(String type : weights.keySet()){
       finalScore += calcScore(name, type);
     }
-    System.out.println("Final Score: " + finalScore);
-    return finalScore;
+    studentsMap.get(name).put("FINAL SCORE", finalScore);
+    System.out.println("Final Score Calculated!");
   }
 
-
-  
-/*
-  //ADD SCORE
-  public void addScores(){
-    Scanner scnr = new Scanner(System.in);
-    System.out.println("ADD MISSING SCORES");
-    for(String k : studentsMap.keySet()){
-    boolean again = true;
-    do{
-      try{
-        System.out.println(k);
-        if(!studentsMap.get(k).containsKey("Homework")){
-          again = true;
-          System.out.println("Enter Homework Score: ");
-          int score = scnr.nextInt();
-          String buffer = scnr.nextLine();
-          scoreValidator(score);
-          studentsMap.get(k).put("Homework", score);
-          again = false;
-        }
-        if(!studentsMap.get(k).containsKey("Quiz")){
-          again = true;
-          System.out.println("Enter Quiz Score: ");
-          int score = scnr.nextInt();
-          String buffer = scnr.nextLine();
-          scoreValidator(score);
-          studentsMap.get(k).put("Quiz", score);
-          again = false;
-        }
-        if(!studentsMap.get(k).containsKey("Midterm")){
-          again = true;
-          System.out.println("Enter Midterm Score: ");
-          int score = scnr.nextInt();
-          String buffer = scnr.nextLine();
-          scoreValidator(score);
-          studentsMap.get(k).put("Midterm", score);
-          again = false;
-        }
-        if(!studentsMap.get(k).containsKey("Final Exam")){
-          again = true;
-          System.out.println("Enter Final Exam Score: ");
-          int score = scnr.nextInt();
-          String buffer = scnr.nextLine();
-          scoreValidator(score);
-          studentsMap.get(k).put("Final Exam", score);
-          again = false;
-        }
-        System.out.println();
-      }catch(InputMismatchException e){
-        String buffer = scnr.nextLine();
-        System.out.println(e.toString() + ":\nOnly Integers Accepted");
-      }catch(IllegalArgumentException ee){
-        System.out.println(ee.toString());
+  //FOR TESTING: CALCULATE FINAL SCORE FOR ALL STUDENTS
+  public void calcAllFinalScores(){
+    for(String name : studentsMap.keySet()){
+      double finalScore = 0.0;
+      for(String type : weights.keySet()){
+        finalScore += calcScore(name, type);
       }
-    }while(again);
-    }  
+      studentsMap.get(name).put("FINAL SCORE", finalScore);
+    }
   }
-*/
- 
 
   //CHANGE SCORE
   public void changeScore(){
     Scanner scnr = new Scanner(System.in);
-    boolean again = false;
+    boolean valid = false;
     do{
-      System.out.println("CHANGE SCORE");
-      again = true;
+      valid = false;
       try{
         System.out.println("Enter Student Name: ");
         String name = scnr.nextLine();
+        name = camelCase(name);
         nameValidator(name);
         if(studentsMap.get(name) != null){
           System.out.println("Which Type?\n");
@@ -274,30 +238,29 @@ public class Student {
             continue;
           } else {
               System.out.println("Enter the New Score: ");
-              int score = scnr.nextInt();
+              double score = scnr.nextInt();
               scoreValidator(score);
               studentsMap.get(name).put(type, score);
-              again = false;
+              valid = true;
           }
         } else {
           System.out.println("No Such Student Exits");
           continue;
         }
       } catch(InputMismatchException e) {
-        System.out.println(e.toString()+ ": Only Integers Accepted");
+        System.out.println(e.toString()+ ": Only Numbers Accepted");
         String buffer = scnr.nextLine();
       } catch(IllegalArgumentException ee) {
         System.out.println(ee.toString());
       }
-    }while(again);
+    }while(!valid);
   }
 
   //NAME VALIDATION [helper for addStudent() & changeName()]
   public void nameValidator(String name){
     if(name == ""){
       throw new IllegalArgumentException("\nNothing Entered");
-    }
-    else{
+    } else {
       for(int i=0; i<name.length(); i++){
         if(!Character.isLetter(name.charAt(i))){
           throw new IllegalArgumentException("\nOnly Letters Accepted");
@@ -307,8 +270,8 @@ public class Student {
   }
 
   //SCORE VALIDATION [helper for addStudent() and changeScore()]
-  public void scoreValidator(int score){
-    if(score < 0 || score > 100){
+  public void scoreValidator(double score){
+    if(score < 0.0 || score > 100.0){
       throw new IllegalArgumentException("\nOnly Scores (0 - 100) Accepted");
     }
   }
@@ -318,38 +281,27 @@ public class Student {
     Scanner scnr = new Scanner(System.in);
     System.out.println("Enter Student Name: ");
     String name = scnr.nextLine();
+    name = camelCase(name);
     if(studentsMap.get(name) == null){
       System.out.println("No Such Student Exists");
-    }
-    else{
+    } else {
       System.out.println(name);
       for(String k : studentsMap.get(name).keySet()){
-        System.out.printf("%12s: %s", k, studentsMap.get(name).get(k));
+        System.out.printf("%12s: %.1f", k, studentsMap.get(name).get(k));
         System.out.println();
       }
-    System.out.println();
     }
   }
 
-  //PRINT STUDENT [helper for ]
-  public void printStudentInfo(String name){
-    System.out.println(name);
-    for(String k : studentsMap.get(name).keySet()){
-      System.out.printf("%12s: %s", k, studentsMap.get(name).get(k));
-      System.out.println();
-    }
-  System.out.println();
-  }
-
-  //FOR TESTING. PRINT ALL
-  public void printAll(){
+  //CHECK ALL STUDENTS
+  public void checkAllStudents(){
     for(String name : studentsMap.keySet()){
       System.out.println(name);
       for(String k : studentsMap.get(name).keySet()){
-        System.out.printf("%12s: %s", k, studentsMap.get(name).get(k));
+        System.out.printf("%12s: %.1f", k, studentsMap.get(name).get(k));
         System.out.println();
-      }    
-    System.out.println();
+      }
+      System.out.println();
     }
   }
   

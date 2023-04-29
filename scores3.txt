@@ -1,0 +1,8 @@
+Points for Midterm	Points for homework
+bill	57
+aaron	30
+bob	79
+James	63
+April	70
+olivia	34
+Julie	84
