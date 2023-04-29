@@ -71,6 +71,7 @@ public class Student {
   }
 
   //CREATE STUDENT [helper for addStudent()]
+  //TEST THIS
   public void createStudent(String name, double h, double m, double q, double f){
     HashMap<String, Double> scores = new HashMap<String, Double>();
     name = camelCase(name);
@@ -123,7 +124,6 @@ public class Student {
   }
 
   
-
   //DELETE STUDENT
   public void deleteStudent(){
     Scanner scnr = new Scanner(System.in);
@@ -193,7 +193,7 @@ public class Student {
       finalScore += calcScore(name, type);
     }
     studentsMap.get(name).put("FINAL SCORE", finalScore);
-    System.out.println("Final Score Calculated!");
+    System.out.println("Final Score Calculated!\n");
   }
 
   //FOR TESTING: CALCULATE FINAL SCORE FOR ALL STUDENTS
@@ -291,6 +291,7 @@ public class Student {
         System.out.println();
       }
     }
+    System.out.println();
   }
 
   //CHECK ALL STUDENTS

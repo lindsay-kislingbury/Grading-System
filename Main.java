@@ -7,7 +7,7 @@ class Main {
   public static void main(String[] args) {
     Scanner scnr = new Scanner(System.in);
     Student students = new Student();
-    System.out.println("WELCOME TO GRADEBOOK!");
+    System.out.println("\nWELCOME TO GRADEBOOK!");
     System.out.println("To Begin, input score files");
 
     //Read files
@@ -69,15 +69,9 @@ class Main {
           students.checkAllStudents();
           break;
         }
-  
-
-  
-
-
-
       }
     } else {
-      System.out.println("Goodbye!");
+      System.out.println("Thank you for using GRADEBOOK!");
     }
   }while(choice != "");
   }
