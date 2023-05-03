@@ -19,8 +19,8 @@ COMMENTS:
 
 IDEAS:    
 ----
-- create changeWeights function
-- create test class
+- test class
+- extra exceptions: nullPointerException in method sort or curve
 
 REQUIREMENTS:
 ----   
@@ -68,8 +68,8 @@ REQUIREMENTS:
    - ✔ If you have all scores, just calculate the final score; otherwise, notify which scores are missing and ask for input from the keyboard
    - ✔ Those kinds of operations will be repeated until we get all the scores. Then calculate the final score.
 
-8. **curveGrade** ❌
-  - Curve the final score according to the following criteria and store it into the array/list that contains all scores
+8. **curveGrade** ✅
+  - ✔ Curve the final score according to the following criteria and store it into the array/list that contains all scores
     ```
     Top 10%      A
     Top 20%-10%  B

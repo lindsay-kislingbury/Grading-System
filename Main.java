@@ -7,7 +7,6 @@ class Main {
   public static void main(String[] args) {
     Scanner scnr = new Scanner(System.in);
     Student students = new Student();
-    System.out.println("\nWELCOME TO GRADEBOOK!");
     System.out.println("To Begin, input score files");
 
     //Read files
@@ -30,9 +29,11 @@ class Main {
     System.out.println("3. Change Name");
     System.out.println("4. Change Score");
     System.out.println("5. Get Final Score");
-    System.out.println("6. *Calculate All Final Scores*");
-    System.out.println("7. Check Student");
-    System.out.println("8. *Check All Students*");
+    System.out.println("6. Check Student");
+    System.out.println("7. Curve Grade");
+    System.out.println("8. *GET ALL FINAL SCORES*");
+    System.out.println("9. *CHECK ALL STUDENTS*");
+    
     System.out.println("Press Enter to Exit");
     choice = scnr.nextLine();
     if(choice != ""){
@@ -57,15 +58,19 @@ class Main {
           students.getFinalScore();
           break;
         }
-        case '6': { //FOR TESTING: CALCULATE ALL FINAL SCORES
-          students.calcAllFinalScores();
-          break;
-        }
-        case '7': { //CHECK STUDENT
+        case '6': { //CHECK STUDENT
           students.checkStudent();
           break;
         }
-        case '8': { //FOR TESTING: PRINT ALL STUDENTS
+        case '7':{ //CURVE GRADE
+          students.getAllFinalScores();
+          students.curveGrade();
+        }
+        case '8': { //FOR TESTING: CALCULATE ALL FINAL SCORES
+          students.getAllFinalScores();
+          break;
+        }
+        case '9': { //FOR TESTING: PRINT ALL STUDENTS
           students.checkAllStudents();
           break;
         }
