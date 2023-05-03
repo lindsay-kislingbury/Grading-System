@@ -1,19 +1,11 @@
 {
   "files": {
-    "Main.java": [
+    "Student.java": [
       {
-        "id": "844a46f2-d134-465c-ade3-b4929b4a6fa4",
-        "line": 1,
-        "version": 2074,
-        "index": 0
-      }
-    ],
-    "StudentGroup.java": [
-      {
-        "id": "35904a09-004b-41a6-9677-bf504c335ad2",
-        "line": 12,
-        "version": 8075,
-        "index": 220
+        "id": "001edb3e-8626-4ad4-89d5-1b1ccae20618",
+        "line": 321,
+        "version": 13988,
+        "index": 10329
       }
     ]
   }

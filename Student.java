@@ -21,8 +21,13 @@ public class Student {
     weights.put("Final Exam", 0.3);
   }
 
-  public void putStudent(String name, HashMap<String, Double> scores){
-    studentsMap.put(name, scores);
+  public void putStudent(String name){
+    HashMap<String, Double> scores = new HashMap<String, Double>();
+    studentsMap.put(name,scores);
+  }
+
+  public void putScore(String name, String type, Double score){
+    studentsMap.get(name).put(type, score);
   }
 
   /*** GETTERS & SETTERS ***/
@@ -317,7 +322,7 @@ public class Student {
 
     List<Map.Entry<String, HashMap<String, Double>>> entries = new ArrayList<Map.Entry<String, HashMap<String, Double>>>(
         set);
-
+    
     Collections.sort(entries,
         new Comparator<Map.Entry<String, HashMap<String, Double>>>() {
           @Override
