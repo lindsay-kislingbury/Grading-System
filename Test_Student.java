@@ -3,12 +3,10 @@ import java.util.*;
 class Test_Student{
   public Test_Student(){}
 
-  public void sortTest1(){
-  }
-  
+  //CURVE TEST 1
   public void curveTest1(){
-
-    
+    System.out.println("CURVE TEST 1");
+    System.out.println("\t# of students: 10");
     Student student = new Student();
 
     //TEST DATA
@@ -77,29 +75,16 @@ class Test_Student{
     
     //VALIDATION DATA
     HashMap<String, Double> testFinalScores = new HashMap<String, Double>();
-    testFinalScores.put("Amy", 78.7);   //    
-    testFinalScores.put("Joe", 58.3); //
-    testFinalScores.put("Patrick", 66.8); //
-    testFinalScores.put("April", 70.3);  //
-    testFinalScores.put("Sharon", 70.1); //
-    testFinalScores.put("Kyla", 63.1); //
-    testFinalScores.put("Terry", 49.1); //
-    testFinalScores.put("Mia", 83.9); //
-    testFinalScores.put("Jason", 83.6); //
-    testFinalScores.put("Becca", 61.2); //
-
-    /* 
-    testFinalScores.put("Mia", 83.9);  'A'
-    testFinalScores.put("Jason", 83.6); 'A'
-    testFinalScores.put("Amy", 78.7);  'B'
-    testFinalScores.put("April", 70.3); 'B'
-    testFinalScores.put("Sharon", 70.1); 'C'
-    testFinalScores.put("Patrick", 66.8); 'C'
-    testFinalScores.put("Kyla", 63.1); 'D'
-    testFinalScores.put("Becca", 61.2); 'D'
-    testFinalScores.put("Joe", 58.3); 'F'
-    testFinalScores.put("Terry", 49.1); 'F'
-      */
+    testFinalScores.put("Amy", 78.7);       
+    testFinalScores.put("Joe", 58.3);
+    testFinalScores.put("Patrick", 66.8);
+    testFinalScores.put("April", 70.3);
+    testFinalScores.put("Sharon", 70.1);
+    testFinalScores.put("Kyla", 63.1);
+    testFinalScores.put("Terry", 49.1);
+    testFinalScores.put("Mia", 83.9);
+    testFinalScores.put("Jason", 83.6);
+    testFinalScores.put("Becca", 61.2);
     
     //VALIDATION DATA
     //# of students: 10
@@ -126,14 +111,67 @@ class Test_Student{
                validationData.get(k), student.getLetterGrade(k));
       }
     }
+    System.out.println("\n");
+  }
+
+  //CURVE TEST 2
+  public void curveTest2(){
+    System.out.println("CURVE TEST 2");
+    System.out.println("\t# of students: 3");
     
+    Student student = new Student();
+
+    //TEST DATA
+    student.putStudent("Amy");
+    student.putScore("Amy", "Homework", 54.0);
+    student.putScore("Amy", "Quiz", 78.0);
+    student.putScore("Amy", "Midterm", 99.0);
+    student.putScore("Amy", "Final Exam", 85.0);
+
+    student.putStudent("Joe");
+    student.putScore("Joe", "Homework", 58.0);
+    student.putScore("Joe", "Quiz", 52.6);
+    student.putScore("Joe", "Midterm", 47.7);
+    student.putScore("Joe", "Final Exam", 69.3);
+
+    student.putStudent("Patrick");
+    student.putScore("Patrick", "Homework", 73.5);
+    student.putScore("Patrick", "Quiz", 91.1);
+    student.putScore("Patrick", "Midterm", 67.0);
+    student.putScore("Patrick", "Final Exam", 43.6);
+
+    student.getAllFinalScores();
+    student.curveGrade();
+
+    //VALIDATION DATA
+    HashMap<String, Double> testFinalScores = new HashMap<String, Double>();
+    testFinalScores.put("Amy", 78.7);       
+    testFinalScores.put("Joe", 58.3);
+    testFinalScores.put("Patrick", 66.8);
+    HashMap<String, Character> validationData = new HashMap<String, Character>();
+    validationData.put("Amy", 'A');
+    validationData.put("Joe", 'C');
+    validationData.put("Patrick", 'B');
+    
+    //TEST
+    for(String k : validationData.keySet()){
+      if(student.getLetterGrade(k) == validationData.get(k)){
+      System.out.printf("TEST PASSED - EXPECTED: %s OBSERVED: %s\n", 
+             validationData.get(k), student.getLetterGrade(k));
+      }
+      else{
+        System.out.printf("TEST FAILED - EXPECTED: %s OBSERVED: %s\n", 
+               validationData.get(k), student.getLetterGrade(k));
+      }
+    }
+    System.out.println("\n");
   }
 
 	  
   public static void main(String[] args){
     Test_Student test = new Test_Student();
-
     test.curveTest1();
+    test.curveTest2();
     
   }
 }

@@ -7,6 +7,8 @@ TODO:
 
 COMMENTS:    
 ----
+- script to run test class:     
+    `java -classpath .:target/dependency/* Test_Student`
 - right now, program outputs final score. this will be removed and final grade printed. 
 - currently forcing camel case on names read from file and input manually. 
     - prevents errors and makes validation better
