@@ -7,22 +7,17 @@ TODO:
 
 COMMENTS:    
 ----
-- script to run test class:     
-    `java -classpath .:target/dependency/* Test_Student`
 - right now, program outputs final score. this will be removed and final grade printed. 
 - currently forcing camel case on names read from file and input manually. 
     - prevents errors and makes validation better
-- Extra validation: addStudent() also checks if you entered nothing. If so, it throws an IllegalArgument message with relevant message.
+- Extra validation:
+  - addStudent() also checks if you entered nothing. If so, it throws an IllegalArgument message with relevant message.
+  - curveGrade() catches a custom exception. If the list of students is less than the number of grading brackets, it throws an exception. The curve grade method would break 
 - OUTPUT: prof said that she likes our menu output. She said this is good for the final output.
 - Content of files scores1, scores2, scores3:
   - **scores1**: Points for quiz, Points for homework, Points for midterm
   - **scores2**: Points for final exam
   - **scores3**: Points for midterm (repeated score type)
-
-IDEAS:    
-----
-- test class
-- extra exceptions: nullPointerException in method sort or curve
 
 REQUIREMENTS:
 ----   

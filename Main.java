@@ -2,8 +2,6 @@ import java.io.*;
 import java.util.*;
 
 class Main {  
-
-  //MAIN
   public static void main(String[] args) {
     Scanner scnr = new Scanner(System.in);
     Student students = new Student();
@@ -19,8 +17,6 @@ class Main {
     }
     
     //Program Menu
-    // * indicates that the function is not asked for in the instructions
-    // but it makes testing easier or we may want to keep it
     String choice = "";
     do{
     System.out.printf("%13s","MENU\n");
@@ -74,9 +70,14 @@ class Main {
           students.checkAllStudents();
           break;
         }
+        case 't':{
+          Test_Student test = new Test_Student();
+          test.curveTest1();
+          test.curveTest2();
+        }
       }
     } else {
-      System.out.println("Thank you for using GRADEBOOK!");
+      System.out.println("Good Bye!");
     }
   }while(choice != "");
   }
