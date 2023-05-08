@@ -22,6 +22,15 @@ public class Student {
   }
 
   /*** GETTERS & SETTERS ***/
+  //GET MAP
+  public HashMap<String, HashMap<String, Double>> getMap(){
+	  return studentsMap;
+  }
+  
+  public HashMap<String, Character>getGrades() {
+	  return letterGrades;
+  }
+  
   //PUT STUDENT IN MAP
   public void putStudent(String name){
     HashMap<String, Double> scores = new HashMap<String, Double>();
@@ -89,23 +98,27 @@ public class Student {
 
   //ADD STUDENT
   public void addStudent() {
+    // Variable Initialization
     Scanner scnr = new Scanner(System.in);
     boolean valid = false;
     String name = "";
     double h = 0, q = 0, m = 0, f = 0;
+    //Processing
     do {
-      System.out.println("\nADD STUDENT");
-      try {
-        System.out.println("Enter Student Name: ");
-        name = scnr.nextLine();
+      System.out.println("\nADD STUDENT"); //Output
+      try { //Processing
+        System.out.println("Enter Student Name: "); // Output
+        name = scnr.nextLine(); //Input
         name = camelCase(name);
+        //Processing
         if (studentsMap.get(name) != null) {
-          System.out.println("The Student Already Exists");
+          System.out.println("The Student Already Exists"); //Output
           continue;
         }
         nameValidator(name);
+        //Input
         System.out.println("Enter Homework Score: ");
-        h = scnr.nextDouble();
+        h = scnr.nextDouble(); //Processing
         scoreValidator(h);
         System.out.println("Enter Midterm Score: ");
         m = scnr.nextDouble();
@@ -115,17 +128,60 @@ public class Student {
         scoreValidator(q);
         System.out.println("Enter Final Exam Score: ");
         f = scnr.nextDouble();
+        //Processing
         scoreValidator(f);
-        valid = true;
         createStudent(name, h, m, q, f);
-      } catch (InputMismatchException e) {
+        valid = true;
+        //Two Exceptions
+      } catch (InputMismatchException ee) { // Exception to restrict   
+        // scores to numbers input
         String buffer = scnr.nextLine();
-        System.out.println(e.toString() + ":\nOnly Numbers Accepted");
-      } catch (IllegalArgumentException ee) {
-        System.out.println(ee.toString());
+        System.out.println(ee.toString() + ":\nOnly Numbers Accepted");
+      } catch (IllegalArgumentException e) { // 
+        System.out.println(e.toString());
       }
     } while (!valid);
 
+  }
+
+  //ADD SCORE
+  public void addScore(){
+    Scanner scnr = new Scanner(System.in);
+    boolean valid = false;
+    System.out.println("Enter Name Of Student: ");
+    String name = scnr.nextLine();
+    name = camelCase(name);
+    if (studentsMap.get(name) != null) {
+      System.out.println("Which Type?\n");
+      System.out.println("1. Homework\n2. Quiz\n3. Midterm\n4. Final Exam");
+      Character choice = scnr.nextLine().charAt(0);
+      String type = "";
+      switch (choice) {
+        case '1':
+          type = "Homework";
+          break;
+        case '2':
+          type = "Quiz";
+          break;
+        case '3':
+          type = "Midterm";
+          break;
+        case '4':
+          type = "Final Exam";
+          break;
+      }
+      if(studentsMap.get(name).get(type) != null){
+        System.out.println("The Score Already Exists\n");
+      } else {
+          System.out.println("Enter the New Score: ");
+          double score = scnr.nextInt();
+          scoreValidator(score);
+          studentsMap.get(name).put(type, score);
+          valid = true;
+      }
+    } else {
+      System.out.println("No Such Student Exists");
+    }
   }
 
   //DELETE STUDENT
@@ -143,18 +199,18 @@ public class Student {
   //CHANGE NAME
   public void changeName() {
     Scanner scnr = new Scanner(System.in);
-    boolean valid = false;
-    System.out.println("Enter the Name to Change: ");
-    String oldName = scnr.nextLine();
-    oldName = camelCase(oldName);
-    if (studentsMap.get(oldName) != null) {
+    boolean valid = false; // rectangle
+    System.out.println("Enter the Name to Change: "); //Parallelogram
+    String oldName = scnr.nextLine(); //Parallelogram
+    oldName = camelCase(oldName); // rectangle with two lines on sides
+    if (studentsMap.get(oldName) != null) { //diamond
       do {
         System.out.println("Enter the New Name: ");
         String newName = scnr.nextLine();
         nameValidator(newName);
         newName = camelCase(newName);
-        valid = true;
         studentsMap.put(newName, studentsMap.remove(oldName));
+        valid = true;
       } while (!valid);
     } else {
       System.out.println("No Such Student Exists");
@@ -189,6 +245,7 @@ public class Student {
       double weightedScore = (studentsMap.get(name).get(type) * weights.get(type));
       finalScore += weightedScore;
     }
+    
     studentsMap.get(name).put("FinalScore", finalScore);
     System.out.println("FinalScore Calculated!\n");
   }
@@ -248,16 +305,17 @@ public class Student {
 
   //CURVE GRADE
   public void curveGrade() {
+    getAllFinalScores();
     try {
-    if(studentsMap.size() <= bracketWeights.length){
-        throw new Exception("Data Set size " + studentsMap.size() + " is too small");
-    }
       List<Map.Entry<String, HashMap<String, Double>>> entries = sortStudents();
       int numStudents = entries.size();
       int lastStartIndex = 0;
       for (int i = 0; i < bracketWeights.length; i++) {
-        int bracketSize = ((int) Math.ceil(bracketWeights[i] * numStudents));
+        int bracketSize = ((int)Math.ceil(bracketWeights[i] * numStudents));
         int endIndex = lastStartIndex + bracketSize;
+        if(endIndex > numStudents){
+          continue;
+        }
         for (int j = lastStartIndex; j <= endIndex; j++) {
           letterGrades.put(entries.get(j).getKey(), bracketLetters[i]);
         }
@@ -266,7 +324,7 @@ public class Student {
       for (int k = lastStartIndex; k < numStudents; k++) {
         letterGrades.put(entries.get(k).getKey(), 'F');
       }
-    }catch (Exception e){
+    }catch (IndexOutOfBoundsException e){
       System.out.println(e);
     }
   }
@@ -296,6 +354,8 @@ public class Student {
         }
         double weightedScore = (studentsMap.get(name).get(type)
             * weights.get(type));
+        weightedScore = Math.round(weightedScore * 100);
+        weightedScore = weightedScore/100;
         finalScore += weightedScore;
       }
       studentsMap.get(name).put("FinalScore", finalScore);
@@ -351,7 +411,6 @@ public class Student {
     Collections.sort(
       entries,
       new Comparator<Map.Entry<String, HashMap<String, Double>>>() {
-        @Override
         public int compare(Map.Entry<String, HashMap<String, Double>> s1,
             Map.Entry<String, HashMap<String, Double>> s2) {
           return s2.getValue().get("FinalScore")

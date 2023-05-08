@@ -23,13 +23,14 @@ class Main {
     System.out.println("1. Add Student");
     System.out.println("2. Delete Student");
     System.out.println("3. Change Name");
-    System.out.println("4. Change Score");
-    System.out.println("5. Get Final Score");
-    System.out.println("6. Check Student");
-    System.out.println("7. Curve Grade");
-    System.out.println("8. *GET ALL FINAL SCORES*");
-    System.out.println("9. *CHECK ALL STUDENTS*");
-    
+    System.out.println("4. Add Score");
+    System.out.println("5. Change Score");
+    System.out.println("6. Get Final Score");
+    System.out.println("7. Check Student");
+    System.out.println("8. Curve Grade");
+    System.out.println("9. Check All Students");
+    System.out.println("0. Run Tests");
+    System.out.println("W. Write To File");
     System.out.println("Press Enter to Exit");
     choice = scnr.nextLine();
     if(choice != ""){
@@ -46,34 +47,41 @@ class Main {
           students.changeName();
           break;
         }     
-        case '4': { //CHANGE SCORE
+        case '4': { //ADD SCORE
+          students.addScore();
+          break;
+        }
+        case '5': { //CHANGE SCORE
           students.changeScore();
           break;
         }  
-        case '5': { //GET FINAL SCORE
+        case '6': { //GET FINAL SCORE
           students.getFinalScore();
           break;
         }
-        case '6': { //CHECK STUDENT
+        case '7': { //CHECK STUDENT
           students.checkStudent();
           break;
         }
-        case '7':{ //CURVE GRADE
-          students.getAllFinalScores();
+        case '8':{ //CURVE GRADE
           students.curveGrade();
-        }
-        case '8': { //FOR TESTING: CALCULATE ALL FINAL SCORES
-          students.getAllFinalScores();
           break;
         }
-        case '9': { //FOR TESTING: PRINT ALL STUDENTS
+        case '9': { //PRINT ALL STUDENTS
           students.checkAllStudents();
           break;
         }
-        case 't':{
+        case '0':{ //RUN TESTS
           Test_Student test = new Test_Student();
           test.curveTest1();
           test.curveTest2();
+          break;
+        }
+        case 'W'://PRINT TO FILE
+        	case'w':{
+        	Print output = new Print();
+        	output.outputFile(students.getMap(), students.getGrades());
+          break;
         }
       }
     } else {
